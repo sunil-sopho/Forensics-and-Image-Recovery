@@ -1,9 +1,22 @@
-0.  TODO
-1.  TODO
-2.  TODO
-3.  TODO
-4.  TODO
-5.  TODO
+0.  bmp-32 bit or 4billion color
+    gif-8bit or 256 color
+    jpeg-24bit or 16 million color
+    png-24bit or 16 million color
+1.  gif
+2.  Lossless and lossy compression are terms that describe whether or not,
+in the compression of a file, all original data can be recovered when the file
+is uncompressed. With lossless compression, every single bit of data that was
+originally in the file remains after the file is uncompressed.
+3.  jpeg gif
+4.    1. The system modifies the filename's first character to signal that it has
+       been deleted and that the directory entry can be recycled.
+       (Most OSs simply remove the file's reference from the containing dir.)
+    2. The system moves all of the file's FAT clusters to the hard drive's list
+       of free clusters.
+The file's data is never touched.
+5.  Write NUL bytes (or random characters) to every address on the disk.
+There's consensus that "overwriting a disk with a few random passes" is 
+sufficient.
 6.  TODO
 7.  TODO
 8.  TODO
