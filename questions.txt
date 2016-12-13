@@ -33,10 +33,11 @@ The file's data is never touched.
     is the lower left corner.
     if biheight is negative, the bitmap is a top bottom DIB and its origin is
     upper left corner.
-12. TODO
-13. TODO
-14. TODO
-15. TODO
-16. TODO
-17. TODO
-18. TODO
+12. bibitcount
+13. fopen will return null if it cannot find the file.
+14. Third argument specifies the number of elements it will read and we are always reading one struct at a time.
+15. becuase 3 pixel*3 byte per pixel=9 which is not a multiple of  4 so we hav to add a padding of
+    3 so that  9 +3 byte =12 byte which is multiple of 4.
+16. it moves the file position indicator
+17. SEEK_CUR is an option used in fseek to set the offset relative to the current pointer position.
+18. john f kennedy
