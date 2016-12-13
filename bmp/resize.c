@@ -4,7 +4,7 @@
  * Computer Science 50
  * Problem Set 4
  *
- * Copies a BMP piece by piece, just because.
+ * resize a BMP piece by piece, just because.
  */
        
 #include <stdio.h>
@@ -15,15 +15,17 @@
 int main(int argc, char* argv[])
 {
     // ensure proper usage
-    if (argc != 3)
+    if (argc != 4)
     {
-        printf("Usage: ./copy infile outfile\n");
+        printf("Usage: ./resize n infile outfile\n");
         return 1;
     }
-
+    
+    // increment times
+    int n = argv[1];
     // remember filenames
-    char* infile = argv[1];
-    char* outfile = argv[2];
+    char* infile = argv[2];
+    char* outfile = argv[3];
 
     // open input file 
     FILE* inptr = fopen(infile, "r");
