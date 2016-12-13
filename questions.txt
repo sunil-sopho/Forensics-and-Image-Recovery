@@ -14,15 +14,25 @@ originally in the file remains after the file is uncompressed.
     2. The system moves all of the file's FAT clusters to the hard drive's list
        of free clusters.
 The file's data is never touched.
-5.  Write NUL bytes (or random characters) to every address on the disk.
-There's consensus that "overwriting a disk with a few random passes" is 
-sufficient.
-6.  TODO
-7.  TODO
-8.  TODO
-9.  TODO
-10. TODO
-11. TODO
+5.  delete files using secure delete option.that replaces the section on the disk containing
+    our data with all zeroes.or replacing it with arbitrary bits.
+    
+6.  stdint.h is a header file that declares specified integer types as having a certain width.
+7.  it makes clear and evident that you intend to use the data in specific way orformat
+    as unit8_t means a integer 8 bit long
+8.  byte 1 byte
+    dword 4 byte
+    long 4 byte 
+    word 2 bytes
+
+9.  the first two bytes of a bmp is a word and denotes bfType, which specifies the file type
+    .it must be set to word BM (0x4D42) to indicate bitmap
+10. bfSize specifies the size in bytes of the bitmap file.
+    bisize specifies the size of the structure in bytes.
+11. if biheight is postive, the bitmap is bottom is a bottom up DIB and its origin
+    is the lower left corner.
+    if biheight is negative, the bitmap is a top bottom DIB and its origin is
+    upper left corner.
 12. TODO
 13. TODO
 14. TODO
