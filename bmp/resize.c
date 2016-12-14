@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     fread(&bf, sizeof(BITMAPFILEHEADER), 1, inptr);
 
     // read infile's BITMAPINFOHEADER
-    BITMAPINFOHEADER bi;
+    BITMAPINFOHEADER bi,bin;
     fread(&bi, sizeof(BITMAPINFOHEADER), 1, inptr);
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
@@ -61,7 +61,21 @@ int main(int argc, char* argv[])
         fprintf(stderr, "Unsupported file format.\n");
         return 4;
     }
-
+    //coping whole data first
+    bin = bi;
+    
+    // changes being made info header
+    bin.biWidth = bi.biWidth * n;
+    
+    // calucalting necceray things for a formula
+    int pad1,pad2,multi;
+    pad1=4-(bi.biWidth%4);
+    pad2=4-((bi.biWidth*n)%4);
+    multi=(n*(bin.biWidth+pad2))/(bi.biWidth+pad1);
+    
+    // changes being made info header
+    bin.biSizeImage = multi*bi.biSizeImage;
+    bin.biHeight = n * bi.biHeight;
     // write outfile's BITMAPFILEHEADER
     fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
 
