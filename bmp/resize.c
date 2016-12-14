@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     }
 
     // read infile's BITMAPFILEHEADER
-    BITMAPFILEHEADER bf;
+    BITMAPFILEHEADER bf,bfn;
     fread(&bf, sizeof(BITMAPFILEHEADER), 1, inptr);
 
     // read infile's BITMAPINFOHEADER
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
     }
     //coping whole data first
     bin = bi;
-    
+    bfn = bf;
     // changes being made info header
     bin.biWidth = bi.biWidth * n;
     
@@ -73,9 +73,11 @@ int main(int argc, char* argv[])
     pad2=4-((bi.biWidth*n)%4);
     multi=(n*(bin.biWidth+pad2))/(bi.biWidth+pad1);
     
-    // changes being made info header
+    // changes being made info header and bfsize(biSizeImage+54)
     bin.biSizeImage = multi*bi.biSizeImage;
     bin.biHeight = n * bi.biHeight;
+    bfn.bfSize = bin.biSizeImage + 54;
+    
     // write outfile's BITMAPFILEHEADER
     fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
 
