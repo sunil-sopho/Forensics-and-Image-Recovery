@@ -69,8 +69,8 @@ int main(int argc, char* argv[])
     
     // calucalting necceray things for a formula
     int pad1,pad2,multi;
-    pad1=4-(bi.biWidth%4);
-    pad2=4-((bi.biWidth*n)%4);
+    pad1=(4-(bi.biWidth%4))%4;
+    pad2=(4-((bin.biWidth)%4))%4;
     multi=(n*(bin.biWidth+pad2))/(bi.biWidth+pad1);
     
     // changes being made info header and bfsize(biSizeImage+54)
