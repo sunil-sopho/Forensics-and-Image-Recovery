@@ -80,14 +80,18 @@ int main(int argc, char* argv[])
     fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
 
     // write outfile's BITMAPINFOHEADER
-    fwrite(&bi, sizeof(BITMAPINFOHEADER), 1, outptr);
+    fwrite(&bin, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // determine padding for scanlines
-    int padding =  (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-
+    int padding =  (4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    
+    // declaring a variable for c verticall coping thing
+    int vert=0;
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bi.biHeight); i < biHeight; i++)
     {
+        vert = 0;
+        LABEL:
         // iterate over pixels in scanline
         for (int j = 0; j < bi.biWidth; j++)
         {
@@ -98,7 +102,10 @@ int main(int argc, char* argv[])
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
 
             // write RGB triple to outfile
+            for (int arbi=0;arbi<n;arbi++)
+            {
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+            }
         }
 
         // skip over padding, if any
@@ -108,6 +115,11 @@ int main(int argc, char* argv[])
         for (int k = 0; k < padding; k++)
         {
             fputc(0x00, outptr);
+        }
+        if(vert<n)
+        {
+            vert++;
+            goto LABEL;
         }
     }
 
