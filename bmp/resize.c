@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
     }
     
     // increment times
-    int n = argv[1];
+    int n = atoi(argv[1]);
     // remember filenames
     char* infile = argv[2];
     char* outfile = argv[3];
