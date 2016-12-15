@@ -68,10 +68,10 @@ int main(int argc, char* argv[])
     bin.biWidth = bi.biWidth * n;
     
     // calucalting necceray things for a formula
-    int pad1,pad2,multi;
-    pad1=(4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    pad2=(4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    multi=(n*(bin.biWidth+pad2))/(bi.biWidth+pad1);
+    int pad1,pad2,multi,pad11,pad22;
+    pad11=(4 - (bi.biWidth )% 4) % 4;
+    pad22=(4 - (bin.biWidth) % 4) % 4;
+    multi=(n*(bin.biWidth+pad22))/(bi.biWidth+pad11);
     
     // changes being made info header and bfsize(biSizeImage+54)
     bin.biSizeImage = multi*bi.biSizeImage;
@@ -79,13 +79,15 @@ int main(int argc, char* argv[])
     bfn.bfSize = bin.biSizeImage + 54;
     
     // write outfile's BITMAPFILEHEADER
-    fwrite(&bf, sizeof(BITMAPFILEHEADER), 1, outptr);
+    fwrite(&bfn, sizeof(BITMAPFILEHEADER), 1, outptr);
 
     // write outfile's BITMAPINFOHEADER
     fwrite(&bin, sizeof(BITMAPINFOHEADER), 1, outptr);
 
     // determine padding for scanlines
     int padding =  (4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    pad1=(4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    pad2=(4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
     
     // declaring a variable for c verticall coping thing
     int vert=1;
