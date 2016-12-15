@@ -9,5 +9,15 @@
 
 int main(int argc, char* argv[])
 {
-    // TODO
+    // opening the card file 
+    FILE* inptr = fopen("card.raw","r");
+    
+    // checking if the file opened correctly
+    if(inptr==NULL)
+    {
+        printf("couldn't open card.raw");
+        return 1;
+    }
+    
+    
 }
