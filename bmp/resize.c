@@ -89,6 +89,7 @@ int main(int argc, char* argv[])
     
     // declaring a variable for c verticall coping thing
     int vert=1;
+    
     // iterate over infile's scanlines
     for (int i = 0, biHeight = abs(bi.biHeight); i < biHeight; i++)
     {
@@ -112,7 +113,7 @@ int main(int argc, char* argv[])
 
         // skip over padding, if any
         fseek(inptr, padding, SEEK_CUR);
-
+        
         // then add it back (to demonstrate how)
         for (int k = 0; k < padding; k++)
         {
@@ -120,6 +121,7 @@ int main(int argc, char* argv[])
         }
         if(vert<n)
         {
+            fseek(inptr,-(SEEK_CUR - SEEK_SET),SEEK_CUR);
             vert++;
             goto LABEL;
         }
