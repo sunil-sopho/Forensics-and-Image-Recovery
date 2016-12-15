@@ -69,8 +69,8 @@ int main(int argc, char* argv[])
     
     // calucalting necceray things for a formula
     int pad1,pad2,multi;
-    pad1=(4-(bi.biWidth%4))%4;
-    pad2=(4-((bin.biWidth)%4))%4;
+    pad1=(4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    pad2=(4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
     multi=(n*(bin.biWidth+pad2))/(bi.biWidth+pad1);
     
     // changes being made info header and bfsize(biSizeImage+54)
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
         }
         if(vert<n)
         {
-            fseek(inptr,-(SEEK_CUR - SEEK_SET),SEEK_CUR);
+            fseek(inptr,-(bi.biWidth*3 + pad1),SEEK_CUR);
             vert++;
             goto LABEL;
         }
