@@ -29,6 +29,30 @@ int main(int argc, char* argv[])
     // initialise a pointer for output file
     FILE* outf;
     
+    // buffer created
+    uint8_t buf[512];
+    
+    // start reading 512 bytes chunks 
+    for(int i=0;;i++)
+    {
+        fread(buf,512,1,inptr);
+        // if we read eof then close infile and outfile
+        if(buf[0]==EOF)
+        {
+            fclose(outf);
+            fclose(inptr);
+            return 0;
+        }
+        
+        // check if the read starting of new jpg
+        if(memcmp(buf,chkjpg1,4)==0||memcmp(buf,chkjpg2,4)==0)
+        {
+            fprintf(title,"%03d.jpg",count);
+            
+        }
+    }
+    
+    
     
     
     
