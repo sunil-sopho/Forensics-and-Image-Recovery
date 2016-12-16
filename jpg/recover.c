@@ -39,16 +39,16 @@ int main()
     //char title[8]; it should be iitaialise some where else
     
     // start reading 512 bytes chunks 
-    for(int i=0;;i++)
+    for(int i=0;fread(buf,512,1,inptr)>0;i++)
     {
-        fread(buf,512,1,inptr);
+        //fread(buf,512,1,inptr);
         // if we read eof then close infile and outfile
-        if((char)buf[0]==EOF)
-        {
+        // if((char)buf[0]==EOF)
+        /*{
             fclose(outf);
             fclose(inptr);
             return 0;
-        }
+        }*/
         
         // check if the read starting of new jpg
         if(memcmp(buf,chkjpg1,4)==0||memcmp(buf,chkjpg2,4)==0)
