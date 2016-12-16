@@ -41,7 +41,6 @@ int main()
     // start reading 512 bytes chunks 
     for(int i=0;fread(buf,512,1,inptr)>0;i++)
     {
-        //fread(buf,512,1,inptr);
         // if we read eof then close infile and outfile
         // if((char)buf[0]==EOF)
         /*{
@@ -66,6 +65,7 @@ int main()
             }
             else
             {
+                count++;
                 outf=fopen(title,"w");
                 fwrite(buf,512,1,outf);
             }
