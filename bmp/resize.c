@@ -45,11 +45,11 @@ int main(int argc, char* argv[])
     }
 
     // read infile's BITMAPFILEHEADER
-    BITMAPFILEHEADER bf,bfn;
+    BITMAPFILEHEADER bf, bfn;
     fread(&bf, sizeof(BITMAPFILEHEADER), 1, inptr);
 
     // read infile's BITMAPINFOHEADER
-    BITMAPINFOHEADER bi,bin;
+    BITMAPINFOHEADER bi, bin;
     fread(&bi, sizeof(BITMAPINFOHEADER), 1, inptr);
 
     // ensure infile is (likely) a 24-bit uncompressed BMP 4.0
@@ -61,26 +61,28 @@ int main(int argc, char* argv[])
         fprintf(stderr, "Unsupported file format.\n");
         return 4;
     }
-    //coping whole data first
+    // coping whole data first
     bin = bi;
     bfn = bf;
     // changes being made info header
     bin.biWidth = bi.biWidth * n;
     
     // calucalting necceray things for a formula
-    int pad1,pad2,multi,pad11,pad22;
-    pad11=(4 - (bi.biWidth )% 4) % 4;
-    pad22=(4 - (bin.biWidth) % 4) % 4;
-    multi=(n*(bin.biWidth+pad22))/(bi.biWidth+pad11);
-     pad1=(4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
-    pad2=(4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    int pad1, pad2, multi, pad11, pad22;
+    pad11 = (4 - (bi.biWidth ) % 4) % 4;
+    pad22 = (4 - (bin.biWidth) % 4) % 4;
+    multi = (n * (bin.biWidth + pad22)) / (bi.biWidth + pad11);
+    pad1 = (4 - (bi.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
+    pad2 = (4 - (bin.biWidth * sizeof(RGBTRIPLE)) % 4) % 4;
     
     // changes being made info header and bfsize(biSizeImage+54)
     // bin.biSizeImage = multi*bi.biSizeImage;
     bin.biHeight = n * bi.biHeight;
-    //bfn.bfSize = bin.biSizeImage + 54;
-    bfn.bfSize = 54 + bin.biWidth * abs(bin.biHeight) * 3 + abs(bin.biHeight) *  pad2;
-	bin.biSizeImage = ((((bin.biWidth * bin.biBitCount) + 31) & ~31) / 8) * abs(bin.biHeight);
+    // bfn.bfSize = bin.biSizeImage + 54;
+    bfn.bfSize = 54 + bin.biWidth * abs(bin.biHeight)
+    * 3 + abs(bin.biHeight) * pad2;
+    bin.biSizeImage = ((((bin.biWidth * bin.biBitCount) + 31) & ~31) / 8)
+	* abs(bin.biHeight);
     
     // write outfile's BITMAPFILEHEADER
     fwrite(&bfn, sizeof(BITMAPFILEHEADER), 1, outptr);
@@ -101,20 +103,20 @@ int main(int argc, char* argv[])
         vert = 1;
         LABEL:
         // iterate over pixels in scanline
-        for (int j = 0; j < bi.biWidth; j++)
-        {
-            // temporary storage
-            RGBTRIPLE triple;
-
-            // read RGB triple from infile
-            fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
-
-            // write RGB triple to outfile
-            for (int arbi=0;arbi<n;arbi++)
+            for (int j = 0; j < bi.biWidth; j++)
             {
-            fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+                // temporary storage
+                RGBTRIPLE triple;
+
+                // read RGB triple from infile
+                fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
+
+                // write RGB triple to outfile
+                for (int arbi=0;arbi < n;arbi++)
+                {
+                    fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
+                }
             }
-        }
 
         // skip over padding, if any
         fseek(inptr, pad1, SEEK_CUR);
@@ -124,9 +126,9 @@ int main(int argc, char* argv[])
         {
             fputc(0x00, outptr);
         }
-        if(vert<n)
+        if (vert < n)
         {
-            fseek(inptr,-(bi.biWidth*3 + pad1),SEEK_CUR);
+            fseek(inptr, -(bi.biWidth * 3 + pad1),SEEK_CUR);
             vert++;
             goto LABEL;
         }
