@@ -56,15 +56,34 @@ int main()
             char title[8];
             sprintf(title, "%03d.jpg",count);
             
-            fopen(title,"w");
-            fwrite(buf,512,1,outf);
-            
+            // if a file is already opened then close that and open a new file esle open a file
+            if(outf)
+            {
+                fclose(outf);
+                count++;
+                outf = fopen(title,"w");
+                fwrite(buf,512,1,outf);
+            }
+            else
+            {
+                outf=fopen(title,"w");
+                fwrite(buf,512,1,outf);
+            }
         }
         else
         {
+            if(outf)
             fwrite(buf,512,1,outf);
         }
     }
-    
+    // closeing all open files 
+    if(outf)
+    {
+        fclose(outf);
+    }
+    if(inptr)
+    {
+        fclose(inptr);
+    }
     return 0;
 }
