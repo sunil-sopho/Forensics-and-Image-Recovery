@@ -49,11 +49,15 @@ int main(int argc, char* argv[])
         {
             fprintf(title,"%03d.jpg",count);
             
+            fopen(title,"w");
+            fwrite(buf,512,1,outf);
+            
+        }
+        else
+        {
+            fwrite(buf,512,1,outf);
         }
     }
     
-    
-    
-    
-    
+    return 0;
 }
