@@ -11,7 +11,7 @@
 #include<stdint.h>
 #include<string.h>
 
-int main(int argc, char* argv[])
+int main()
 {
     // opening the card file 
     FILE* inptr = fopen("card.raw","r");
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     
     // jpg signatures are 8 bit integer
     uint8_t chkjpg1[4]={0xff,0xd8,0xff,0xe0};
-    unit8_t chkjpg2[4]={0xff,0xd8,0xff,0xe1};
+    uint8_t chkjpg2[4]={0xff,0xd8,0xff,0xe1};
     
     //a counter to check jpg number
     int count=0;
