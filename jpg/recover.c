@@ -31,19 +31,19 @@ int main()
     int count=0;
     
     // initialise a pointer for output file
-    FILE* outf;
+    FILE* outf=NULL;
     
     // buffer created
     uint8_t buf[512];
     
-    char title[8];
+    //char title[8]; it should be iitaialise some where else
     
     // start reading 512 bytes chunks 
     for(int i=0;;i++)
     {
         fread(buf,512,1,inptr);
         // if we read eof then close infile and outfile
-        if(buf[0]==EOF)
+        if((char)buf[0]==EOF)
         {
             fclose(outf);
             fclose(inptr);
@@ -53,7 +53,8 @@ int main()
         // check if the read starting of new jpg
         if(memcmp(buf,chkjpg1,4)==0||memcmp(buf,chkjpg2,4)==0)
         {
-            fprintf(title,"%03d.jpg",count);
+            char title[8];
+            fprintf(title, "%03d.jpg",count);
             
             fopen(title,"w");
             fwrite(buf,512,1,outf);
