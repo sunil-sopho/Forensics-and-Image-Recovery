@@ -54,7 +54,7 @@ int main()
         if(memcmp(buf,chkjpg1,4)==0||memcmp(buf,chkjpg2,4)==0)
         {
             char title[8];
-            fprintf(title, "%03d.jpg",count);
+            sprintf(title, "%03d.jpg",count);
             
             fopen(title,"w");
             fwrite(buf,512,1,outf);
